@@ -48,7 +48,7 @@ namespace AspNetCore.ExceptionHandling
             return builder.UseMiddleware<ApiExceptionHandlingMiddleware>();
         }
 
-        public static void ConfigureExceptionHandler(this IApplicationBuilder app, ILogger logger)
+        public static void UseApiExceptionHandler(this IApplicationBuilder app, ILogger logger = null)
         {
             app.UseExceptionHandler(appError =>
             {
@@ -59,7 +59,7 @@ namespace AspNetCore.ExceptionHandling
                     var contextFeature = context.Features.Get<IExceptionHandlerFeature>();
                     if (contextFeature != null)
                     {
-                        logger.LogError($"{contextFeature.Error}");
+                        logger?.LogError(contextFeature.Error, "ExceptionHandlerFeature");
                         await context.Response.WriteAsync(new ErrorDetails()
                         {
                             Code = context.Response.StatusCode,
@@ -70,7 +70,7 @@ namespace AspNetCore.ExceptionHandling
             });
         }
 
-        public static void ConfigureApiExceptionHandler(this IApplicationBuilder app, ILogger logger, string redirectUrl)
+        public static void UseApiExceptionHandler(this IApplicationBuilder app, string errorHandlingPath, ILogger logger = null)
         {
             app.UseExceptionHandler(appError =>
             {
@@ -83,7 +83,7 @@ namespace AspNetCore.ExceptionHandling
                         var contextFeature = context.Features.Get<IExceptionHandlerFeature>();
                         if (contextFeature != null)
                         {
-                            logger.LogError($"{contextFeature.Error}");
+                            logger?.LogError(contextFeature.Error, "ExceptionHandlerFeature");
                             await context.Response.WriteAsync(new ErrorDetails()
                             {
                                 Code = context.Response.StatusCode,
@@ -93,7 +93,7 @@ namespace AspNetCore.ExceptionHandling
                     }
                     else
                     {
-                        context.Response.Redirect(redirectUrl);
+                        context.Response.Redirect(errorHandlingPath);
                     }
                 });
             });
