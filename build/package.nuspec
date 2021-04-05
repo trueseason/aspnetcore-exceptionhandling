@@ -3,7 +3,6 @@
     <metadata>
         <id>AspNetCore.ExceptionHandling</id>
         <version>1.0.0</version>
-        <description>AspNetCore.ExceptionHandling</description>
         <authors>Singtone Contributors</authors>
 		<language>en-US</language>
 		<license type="expression">MIT</license>
