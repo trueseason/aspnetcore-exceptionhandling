@@ -59,7 +59,7 @@ namespace AspNetCore.ExceptionHandling
                     var contextFeature = context.Features.Get<IExceptionHandlerFeature>();
                     if (contextFeature != null)
                     {
-                        logger?.LogError(contextFeature.Error, "ExceptionHandlerFeature");
+                        logger?.LogError($"{contextFeature.Error}");
                         await context.Response.WriteAsync(new ErrorDetails()
                         {
                             Code = context.Response.StatusCode,
@@ -83,7 +83,7 @@ namespace AspNetCore.ExceptionHandling
                         var contextFeature = context.Features.Get<IExceptionHandlerFeature>();
                         if (contextFeature != null)
                         {
-                            logger?.LogError(contextFeature.Error, "ExceptionHandlerFeature");
+                            logger?.LogError($"{contextFeature.Error}");
                             await context.Response.WriteAsync(new ErrorDetails()
                             {
                                 Code = context.Response.StatusCode,
