@@ -10,9 +10,10 @@ Install as a NuGet package: [AspNetCore.ExceptionHandling](https://www.nuget.org
 
 ## Usage
 
-### `UseApiExceptionHandler()`
-### `UseApiExceptionHandler(logger)`
-### `UseApiExceptionHandler(errorHandlingPath, logger)`
+### Microsoft.AspNetCore.Builder.IApplicationBuilder Extensions
+
+##### `public static void UseApiExceptionHandler(this IApplicationBuilder app, ILogger logger = null);`
+##### `public static void UseApiExceptionHandler(this IApplicationBuilder app, string errorHandlingPath, ILogger logger = null);`
 ```
 public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
 {
@@ -33,11 +34,12 @@ Act as a global "catch-all" exception handler, to catch any uncaught exceptions 
 * `logger: ILogger`: The logger will be used to log exception details.
 * `errorHandlingPath: string`: The default error handling path, such as a default api route or the default error web page.
 
-#### Things to note:
+###### Things to note:
 * When the parameter `errorHandlingPath` is present, the function will return 500 when the request is Ajax request or has Json content; For other requests, mostly likely html, binary etc, the requests will be routed to the errorHandlingPath.
 
-### `UseExceptionHandling()`
-### `UseApiExceptionHandling()`
+##### `public static IApplicationBuilder UseExceptionHandling(this IApplicationBuilder builder);`
+##### `public static IApplicationBuilder UseApiExceptionHandling(this IApplicationBuilder builder);`
+
 ```
 public void Configure(IApplicationBuilder app)
 {
