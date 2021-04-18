@@ -14,3 +14,6 @@ This repository is a common exception handling module for ASP.NET Core.
 ## Usage
 
 Build the library yourself or import the NuGet package.
+
+For detailed usage instruction and code samples please refer to the [documentation](https://github.com/trueseason/aspnetcore-exceptionhandling/blob/develop/Documentation.md).
+
