@@ -1,6 +1,6 @@
 # AspNetCore.ExceptionHandling
 
-This repository is a common exception handling module for ASP.NET Core.
+This repository is the common exception handling modules for ASP.NET Core.
 
 **ASP.NET Core** versions supported: 5.0, 3.1, 3.0 and 2.2
 
