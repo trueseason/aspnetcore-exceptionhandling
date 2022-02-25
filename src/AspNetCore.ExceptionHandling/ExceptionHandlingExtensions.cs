@@ -16,7 +16,8 @@ namespace AspNetCore.ExceptionHandling
             if (request == null)
                 throw new ArgumentNullException(nameof(request));
 
-            return request.GetTypedHeaders().Accept.Contains(new MediaTypeHeaderValue("application/json"));
+            return request.GetTypedHeaders().Accept.Contains(new MediaTypeHeaderValue("application/json"))
+                || (request.GetTypedHeaders().ContentType?.MediaType.Equals("application/json") ?? false);
         }
 
         public static bool IsAjaxRequest(this HttpRequest request, string httpVerb = "")
