@@ -16,7 +16,8 @@ namespace AspNetCore.ExceptionHandling
             if (request == null)
                 throw new ArgumentNullException(nameof(request));
 
-            return request.GetTypedHeaders().Accept.Contains(new MediaTypeHeaderValue("application/json"));
+            return request.GetTypedHeaders().Accept.Contains(new MediaTypeHeaderValue("application/json"))
+                || (request.GetTypedHeaders().ContentType?.MediaType.Equals("application/json") ?? false);
         }
 
         public static bool IsAjaxRequest(this HttpRequest request, string httpVerb = "")
@@ -59,7 +60,7 @@ namespace AspNetCore.ExceptionHandling
                     var contextFeature = context.Features.Get<IExceptionHandlerFeature>();
                     if (contextFeature != null)
                     {
-                        logger?.LogError(contextFeature.Error, "ExceptionHandlerFeature");
+                        logger?.LogError($"{contextFeature.Error}");
                         await context.Response.WriteAsync(new ErrorDetails()
                         {
                             Code = context.Response.StatusCode,
@@ -83,7 +84,7 @@ namespace AspNetCore.ExceptionHandling
                         var contextFeature = context.Features.Get<IExceptionHandlerFeature>();
                         if (contextFeature != null)
                         {
-                            logger?.LogError(contextFeature.Error, "ExceptionHandlerFeature");
+                            logger?.LogError($"{contextFeature.Error}");
                             await context.Response.WriteAsync(new ErrorDetails()
                             {
                                 Code = context.Response.StatusCode,
